@@ -1,0 +1,38 @@
+server:
+  port: 9000
+  error:
+    include-message: always
+    include-binding-errors: always
+  servlet:
+    context-path: /api
+
+user:
+  oauth:
+    clientId: R2dpxQ3vPrtfgF72
+    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+    user:
+      username: user
+      password: abcd
+    owner:
+      username: owner
+      password: efgh
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/luxoft_codingtask
+    username: luxoft_codingtask
+    password: password
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    table: flyway_migrations
+    user: luxoft_codingtask
+    password: password
+    url: jdbc:postgresql://localhost:5432/luxoft_codingtask

@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS  data_item (
+    id VARCHAR(36) NOT NULL,
+    name VARCHAR(50) NULL,
+    description VARCHAR(200) NULL,
+    updated TIMESTAMP WITH TIME ZONE NULL,
+    PRIMARY KEY (id)
+)

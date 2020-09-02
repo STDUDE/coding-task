@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class DataItemController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity createDataItem(@RequestBody DataItem dataItem) {
+    public ResponseEntity createDataItem(@Valid @RequestBody DataItem dataItem) {
         log.info("Received data item: " + dataItem.toString() + " to create");
 
         DataItem saved = dataItemRepository.save(dataItem);

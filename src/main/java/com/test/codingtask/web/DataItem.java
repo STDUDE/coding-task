@@ -2,9 +2,11 @@ package com.test.codingtask.web;
 
 import com.opencsv.bean.CsvBindByName;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -16,12 +18,15 @@ public class DataItem implements Serializable {
   @CsvBindByName(column = "primary_key", required = true)
   private @Id String id;
 
+  @Column(nullable = false)
   @CsvBindByName(column = "name", required = true)
   private String name;
 
+  @Column(nullable = false)
   @CsvBindByName(column = "description", required = true)
   private String description;
 
+  @Column(nullable = false)
   @CsvBindByName(column = "updated_timestamp", required = true)
   private Timestamp updated;
 

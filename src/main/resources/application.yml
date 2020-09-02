@@ -37,4 +37,3 @@ spring:
     user: luxoft_codingtask
     password: password
     url: jdbc:postgresql://localhost:5432/luxoft_codingtask
-    schemas: public

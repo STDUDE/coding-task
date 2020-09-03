@@ -20,12 +20,23 @@ public class DataItemService {
 
     boolean isValidDataFormat(String requestContent) throws InvalidDataFormatException {
         try {
-            BufferedReader reader = new BufferedReader(new StringReader(requestContent));
+            BufferedReader reader = new BufferedReader(new StringReader(requestContent + System.lineSeparator()));
             String header = reader.readLine();
 
             LOG.info("Header: " + header);
             if (header.isEmpty() || !header.toUpperCase().equals(EXPECTED_HEADER)) {
                 throw new InvalidDataFormatException("Invalid first line provided");
+            }
+
+            String lastLine = "";
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                lastLine = line;
+            }
+
+            LOG.info("Last line: " + lastLine);
+            if (!lastLine.isEmpty()) {
+                throw new InvalidDataFormatException("Invalid last line provided. Last line should be empty");
             }
             reader.close();
         } catch (IOException e) {
@@ -38,7 +49,6 @@ public class DataItemService {
         CsvToBean csvToBean = new CsvToBeanBuilder(new StringReader(requestContent))
                 .withType(DataItem.class)
                 .withIgnoreLeadingWhiteSpace(true)
-                .withIgnoreEmptyLine(true)
                 .build();
         return csvToBean.parse();
     }

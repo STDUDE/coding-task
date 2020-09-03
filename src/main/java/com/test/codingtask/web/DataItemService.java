@@ -83,17 +83,11 @@ public class DataItemService {
     }
 
     private String trimLastLine(String requestContent) throws IOException {
-        BufferedReader reader = new BufferedReader(new StringReader(requestContent));
-        String text = "";
-        String line = "";
-        while((line = reader.readLine()) != null) {
-            text += line;
-            if (line!=null){
-                text +=  "\n";
-            }
-        }
+        BufferedReader reader = new BufferedReader(new StringReader(requestContent+"end"));
+        List lines = reader.lines().collect(Collectors.toList());
+        lines.remove(lines.size()-1);
         reader.close();
-        return text;
+        return String.join(System.lineSeparator(), lines);
     }
 
 }

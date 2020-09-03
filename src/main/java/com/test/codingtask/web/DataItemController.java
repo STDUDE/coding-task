@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,7 @@ public class DataItemController {
 
         List<DataItem> saved;
         if (dataItemService.isValidDataFormat(requestContent)) {
-            saved = dataItemRepository.saveAll(dataItemService.getDataItems(requestContent));
+            saved = dataItemRepository.saveAll(dataItemService.getDataItems());
 
             log.info("Saved items: " + saved);
             return ResponseEntity.status(HttpStatus.CREATED).build();

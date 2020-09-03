@@ -19,6 +19,8 @@ public class DataItemService {
     private static final Logger LOG = LoggerFactory.getLogger(DataItemService.class);
 
     private static final String EXPECTED_HEADER = "PRIMARY_KEY,NAME,DESCRIPTION,UPDATED_TIMESTAMP".toUpperCase();
+    public static final String EOF_STRING = "EOF";
+    public static final String EXCEPTION_FORMATTED_STRING = "[Corrupted line %s: %s";
 
     private List<DataItem> parsed;
 
@@ -78,12 +80,12 @@ public class DataItemService {
     private String getExceptionMessage(CsvToBean csvToBean) {
         List<CsvException> exceptionsReceived = csvToBean.getCapturedExceptions();
         return exceptionsReceived.stream()
-                .map(e -> "[Corrupted line " + e.getLineNumber() + "]: " + e.getMessage())
+                .map(e -> String.format(EXCEPTION_FORMATTED_STRING, e.getLineNumber(), e.getMessage()))
                 .collect(Collectors.joining("; "));
     }
 
     private String trimLastLine(String requestContent) throws IOException {
-        BufferedReader reader = new BufferedReader(new StringReader(requestContent+"EOF"));
+        BufferedReader reader = new BufferedReader(new StringReader(requestContent+ EOF_STRING));
         List lines = reader.lines().collect(Collectors.toList());
         lines.remove(lines.size()-1);
         reader.close();

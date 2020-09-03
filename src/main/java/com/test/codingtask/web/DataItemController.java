@@ -48,6 +48,7 @@ public class DataItemController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity createDataItem(@Valid @RequestBody DataItem dataItem) {
         log.info("Received data item: " + dataItem.toString() + " to create");
 
@@ -57,7 +58,7 @@ public class DataItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.POST, consumes = "text/plain")
+    @RequestMapping(value = "/list", method = RequestMethod.POST, consumes = "text/plain")
     public ResponseEntity uploadDataItems(@RequestBody String requestContent) throws InvalidDataFormatException {
         log.info("Received plain text: " + requestContent);
 
